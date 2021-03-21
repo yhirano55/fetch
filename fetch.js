@@ -453,6 +453,7 @@ export function Response(bodyInit, options) {
   this.statusText = options.statusText === undefined ? '' : '' + options.statusText
   this.headers = new Headers(options.headers)
   this.url = options.url || ''
+  this.redirected = this.url !== ''
   this._initBody(bodyInit)
 }
 
@@ -462,6 +463,7 @@ Response.prototype.clone = function() {
   return new Response(this._bodyInit, {
     status: this.status,
     statusText: this.statusText,
+    redirected: this.redirected,
     headers: new Headers(this.headers),
     url: this.url
   })
@@ -480,7 +482,7 @@ Response.redirect = function(url, status) {
     throw new RangeError('Invalid status code')
   }
 
-  return new Response(null, {status: status, headers: {location: url}})
+  return new Response(null, {status: status, headers: {location: url}, redirected: true})
 }
 
 export var DOMException = global.DOMException
