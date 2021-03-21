@@ -5,3 +5,4 @@ node_modules/
 sauce_connect/
 sauce_connect.log
 yarn.lock
+dist/
